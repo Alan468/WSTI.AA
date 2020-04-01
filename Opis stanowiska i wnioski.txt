@@ -1,0 +1,19 @@
+Uzyskane wyniki pomiarów wykonywania operacji na stosie
+
+             Stos         Iloœæ          Czas [ms]
+         ArrayStack      10000           5ms
+         ArrayStack      100000          5ms
+         ArrayStack      1000000         109ms
+         ArrayStack      10000000        1062ms
+           C# Stack      10000           0ms
+           C# Stack      100000          1ms
+           C# Stack      1000000         15ms
+           C# Stack      10000000        202ms
+          ListStack      10000           1ms
+          ListStack      100000          5ms
+          ListStack      1000000         109ms
+          ListStack      10000000        1319ms
+
+Specyfikacja komputera 
+Intel Core i5-8250U
+12GB RAM

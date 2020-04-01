@@ -1,0 +1,20 @@
+﻿using AA.Calculator.ONP.BaseTokens;
+using System;
+
+namespace AA.Calculator.ONP.Tokens.Functions
+{
+	public class Round : FunctionBase
+    {
+
+        public Round(string value)
+            : base(value)
+        {
+        }
+
+        public override double Calculate(params double[] args)
+        {
+            return Math.Round(args[0]);
+        }
+
+    }
+}
