@@ -26,7 +26,7 @@ namespace AA.Calculator.ONP.BaseTokens
         {
         }
 
-        public abstract double Calculate(double left, double right);
+        public abstract decimal Calculate(decimal left, decimal right);
 
     }
 }

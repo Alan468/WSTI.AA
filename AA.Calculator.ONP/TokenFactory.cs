@@ -57,6 +57,7 @@ namespace AA.Calculator.ONP
             RegisterToken<ArcCosinus>(x => Match(x, "acos"));
             RegisterToken<Ceiling>(x => Match(x, "ceil", "ceiling"));
             RegisterToken<Floor>(x => Match(x, "floor"));
+            RegisterToken<Factorial>(x => Match(x, "!"));
             RegisterToken<Round>(x => Match(x, "round", "rnd"));
             RegisterToken<Exp>(x => Match(x, "exp"));
             RegisterToken<Logarithm>(x => Match(x, "log", "ln"));

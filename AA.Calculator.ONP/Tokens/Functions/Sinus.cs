@@ -11,9 +11,9 @@ namespace AA.Calculator.ONP.Tokens.Functions
         {
         }
 
-        public override double Calculate(params double[] args)
+        public override decimal Calculate(params decimal[] args)
         {
-            return Math.Sin(args[0]);
+            return (decimal)Math.Sin((double)args[0]);
         }
 
     }

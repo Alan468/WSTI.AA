@@ -11,7 +11,7 @@ namespace AA.Calculator.ONP.Tokens.Functions
         {
         }
 
-        public override double Calculate(params double[] args)
+        public override decimal Calculate(params decimal[] args)
         {
             return Math.Round(args[0]);
         }

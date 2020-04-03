@@ -11,7 +11,7 @@ namespace AA.Calculator.ONP.Tokens.Numbers
         {
         }
 
-        public override double Value => Math.PI;
+        public override decimal Value => (decimal)Math.PI;
         
     }
 }

@@ -17,7 +17,7 @@ namespace AA.Calculator.ONP.Tokens.Basic
         {
         }
 
-        public override double Calculate(double left, double right)
+        public override decimal Calculate(decimal left, decimal right)
         {
             return left * right;
         }

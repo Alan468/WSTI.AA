@@ -6,18 +6,18 @@ namespace AA.Calculator.ONP.Tokens
 	public class Number : NumberBase
 	{
 
-		public override double Value
+		public override decimal Value
 		{
 			get
 			{
 				if (Entry.IndexOf("0x", StringComparison.InvariantCultureIgnoreCase) == 0)
-					return (double)Convert.ToInt32(Entry, 16);
+					return (decimal)Convert.ToInt32(Entry, 16);
 				else
-					return double.Parse(Entry);
+					return decimal.Parse(Entry);
 			}
 		}
 
-		public Number(double value)
+		public Number(decimal value)
 			: this(value.ToString())
 		{
 		}

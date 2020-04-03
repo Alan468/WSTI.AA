@@ -3,7 +3,7 @@
 	public abstract class NumberBase : Token
     {
 
-        public abstract double Value
+        public abstract decimal Value
         {
             get;
         }

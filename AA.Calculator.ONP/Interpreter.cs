@@ -13,7 +13,7 @@ namespace AA.Calculator.ONP
     {
         const string InvalidMessage = "Invalid input";
 
-        public double Calculate(string input)
+        public decimal Calculate(string input)
         {
             if (input == null)
                 throw new ArgumentNullException("input");
@@ -90,7 +90,7 @@ namespace AA.Calculator.ONP
             return output;
         }
 
-        double ProcessPostfix(Queue<Token> postfix)
+        decimal ProcessPostfix(Queue<Token> postfix)
         {
             Stack<Token> stack = new Stack<Token>();
             Token token = null;
@@ -103,17 +103,17 @@ namespace AA.Calculator.ONP
                 {
                     NumberBase right = (NumberBase)stack.Pop();
                     NumberBase left = (NumberBase)stack.Pop();
-                    double value = ((OperatorBase)token).Calculate(left.Value, right.Value);
+                    decimal value = ((OperatorBase)token).Calculate(left.Value, right.Value);
                     stack.Push(new Number(value));
                 }
                 else if (token is FunctionBase)
                 {
                     NumberBase arg = (NumberBase)stack.Pop();
-                    double value = ((FunctionBase)token).Calculate(arg.Value);
+                    decimal value = ((FunctionBase)token).Calculate(arg.Value);
                     stack.Push(new Number(value));
                 }
             }
-            double toret = ((NumberBase)stack.Pop()).Value;
+            decimal toret = ((NumberBase)stack.Pop()).Value;
             if (stack.Count != 0)
                 throw new ArgumentException(InvalidMessage);
             return toret;

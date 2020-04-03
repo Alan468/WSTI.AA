@@ -27,9 +27,9 @@ namespace AA.Calculator.ONP.Tokens.Basic
         {
         }
 
-        public override double Calculate(double left, double right)
+        public override decimal Calculate(decimal left, decimal right)
         {
-            return Math.Pow(left, right);
+            return (decimal)Math.Pow((double)left, (double)right);
         }
     }
 }

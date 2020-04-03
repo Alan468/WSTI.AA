@@ -16,7 +16,7 @@
         {
         }
 
-        public abstract double Calculate(params double[] args);
+        public abstract decimal Calculate(params decimal[] args);
 
     }
 }
