@@ -1,6 +1,7 @@
 ﻿using AA.Calculator.ONP;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +20,35 @@ namespace AA.Calculator.App
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
-		public string Equation { get; set; }
-		public string Input { get; set; }
+		public string equation;
+		public string Equation
+		{
+			get => equation; 
+			set
+			{
+				equation = value;
+				OnPropertyChanged("Equation");
+			}
+		}
+		public string input;
+		public string Input {
+			get => input;
+			set
+			{
+				input = value;
+				OnPropertyChanged("Input");
+			}
+		}
+
 		public Interpreter InterpreterOnp { get; set; }
 
 		public MainWindow()
 		{
 			InterpreterOnp = new Interpreter();
+			Equation = "";
+			Input = "";
 			InitializeComponent();
 		}
 
@@ -38,16 +59,21 @@ namespace AA.Calculator.App
 
 		private void NumberClick(object sender, RoutedEventArgs e)
 		{
-
+			var button = sender as Button;
+			Input += button.Content;
 		}
 
 		private void SignClick(object sender, RoutedEventArgs e)
 		{
-
+			Equation += Input;
+			var button = sender as Button;
+			ClearCurrentValue(sender, e);
+			Equation += button.Content;
 		}
 
 		private void Calculate(object sender, RoutedEventArgs e)
 		{
+			Equation += Input;
 			Input = InterpreterOnp.Calculate(Equation).ToString();
 		}
 
@@ -60,6 +86,12 @@ namespace AA.Calculator.App
 		{
 			Equation = "";
 			ClearCurrentValue(sender, e);
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+		private void OnPropertyChanged(string name)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 	}
 }

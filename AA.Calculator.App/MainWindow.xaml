@@ -39,11 +39,11 @@
 			<RowDefinition></RowDefinition>
 		</Grid.RowDefinitions>
 
-		<TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" TextAlignment="Right">1233456789</TextBox>
+		<TextBox Text="{Binding Path=Equation}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" TextAlignment="Right"></TextBox>
 
-		<TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" 
+		<TextBox Text="{Binding Path=Input}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" 
 					VerticalAlignment="Stretch" TextAlignment="Right" 
-					VerticalContentAlignment="Center" FontSize="18">98765443210</TextBox>
+					VerticalContentAlignment="Center" FontSize="18"></TextBox>
 
 
 		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="2" Content="SIN"></Button>
