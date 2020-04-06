@@ -27,7 +27,7 @@ namespace AA.Calculator.ONP
             RegisterToken<Subtraction>(x => x == "-");
             RegisterToken<Multiplication>(x => x == "*");
             RegisterToken<Division>(x => x == "/" || x == @"\");
-            RegisterToken<Modulus>(x => x == "%");
+            RegisterToken<Modulus>(x => x == "%" || x == "MOD");
             RegisterToken<Power>(x => x == "^");
 
             //Numbers

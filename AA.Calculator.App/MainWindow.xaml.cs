@@ -1,19 +1,8 @@
 ﻿using AA.Calculator.ONP;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AA.Calculator.App
 {
@@ -22,12 +11,12 @@ namespace AA.Calculator.App
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public string LastSign { get; set; }
+		public Interpreter InterpreterOnp { get; set; }
+		public bool ActiveComma { get; set; }
+		public int ActiveBrackets { get; set; }
+		public string LastSing { get; set; }
 		public string LastNumber { get; set; }
 		public bool UseLast { get; set; }
-		public string LastResult { get; set; }
-
-		public Interpreter InterpreterOnp { get; set; }
 
 		public MainWindow()
 		{
@@ -36,95 +25,145 @@ namespace AA.Calculator.App
 			InterpreterOnp = new Interpreter();
 			Equation.Text = "";
 			Input.Text = "";
-			LastSign = "";
+			ActiveComma = false;
+			ActiveBrackets = 0;
+			LastSing = "";
 			LastNumber = "";
-			LastResult = "";
 			UseLast = false;
+		}
+
+		private void CommaClick(object sender, RoutedEventArgs e)
+		{
+			if (ActiveComma)
+				return;
+			Equation.Text += GetButtonContent(sender);
+			ActiveComma = true;
+		}
+
+		private void BracketSignClick(object sender, RoutedEventArgs e)
+		{
+			var content = GetButtonContent(sender);
+
+			if (ActiveComma)
+			{
+				Equation.Text += "0";
+			}
+
+			if (content == "(")
+			{
+				ActiveBrackets++;
+				Equation.Text += content;
+			}
+			else if (ActiveBrackets > 0 && content == ")")
+			{
+				ActiveBrackets--;
+				Equation.Text += content;
+			}
+
+			ActiveComma = false;
 		}
 
 		private void FunctionClick(object sender, RoutedEventArgs e)
 		{
+			if (ActiveComma)
+			{
+				Equation.Text += "0";
+			}
+			Equation.Text += GetButtonContent(sender);
+			Equation.Text += "(";
+			ActiveBrackets++;
 
+			ActiveComma = false;
 		}
 
 		private void NumberClick(object sender, RoutedEventArgs e)
 		{
+			LastNumber = GetButtonContent(sender);
+			Equation.Text += LastNumber;
+			ActiveComma = false;
+
 			if (UseLast)
 			{
 				Equation.Text = Input.Text;
 			}
-			UseLast = false;
-			var button = sender as Button;
-			Input.Text += button.Content;
-			LastNumber = (string)button.Content;
 		}
 
 		private void SignClick(object sender, RoutedEventArgs e)
 		{
+			if (ActiveComma)
+			{
+				Equation.Text += "0";
+			}
+
+			LastSing = GetButtonContent(sender);
+
+			Equation.Text += LastSing;
+			ActiveComma = false;
+
 			if (UseLast)
 			{
-				Equation.Text = Input.Text;
+				LastNumber = Input.Text;
 			}
-			else
-			{
-				Equation.Text += Input.Text;
-			}
-			UseLast = false;
-			var button = sender as Button;
-			ClearCurrentValue(sender, e);
-			Equation.Text += button.Content;
-			LastSign = (string)button.Content;
 		}
 
 		private void Calculate(object sender, RoutedEventArgs e)
 		{
-			if (UseLast)
+			if (string.IsNullOrEmpty(Equation.Text))
+				Equation.Text = "0";
+
+			if (UseLast && LastSing != "" && LastNumber != "")
 			{
-				Equation.Text = Input.Text;
-				Equation.Text += LastSign;
+				var last = Equation.Text?.Last().ToString();
+				if (last != null && int.TryParse(last, out _))
+					Equation.Text += LastSing;
 				Equation.Text += LastNumber;
 			}
 			else
 			{
-				if (string.IsNullOrEmpty(Input.Text) && string.IsNullOrEmpty(LastResult))
-				{
-					Input.Text = LastNumber;
 
-				}
-				else if (string.IsNullOrEmpty(Input.Text) && !string.IsNullOrEmpty(LastResult))
-				{
-					LastNumber = LastResult;
-					Input.Text = LastResult;
-				}
+				UseLast = true;
+			}
 
-				Equation.Text += Input.Text;
+			for (; ActiveBrackets > 0; ActiveBrackets--)
+			{
+				Equation.Text += ")";
 			}
 
 			try
 			{
-				Input.Text = LastResult = InterpreterOnp.Calculate(Equation.Text).ToString();
-
+				Input.Text = decimal.Round(InterpreterOnp.Calculate(Equation.Text), 10, MidpointRounding.AwayFromZero).ToString("");
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Input.Text = ex.Message;
+				Input.Text = "Błąd w równaniu";
 			}
-
-			UseLast = true;
 		}
-
-		private void ClearCurrentValue(object sender, RoutedEventArgs e)
+		private void RoundFunctionClick(object sender, RoutedEventArgs e)
 		{
-			Input.Text = "";
+			Equation.Text = $"round({Input.Text})";
+			Calculate(sender, e);
+		}
+		private void ABSFunctionClick(object sender, RoutedEventArgs e)
+		{
+			Equation.Text = $"abs({Input.Text})";
+			Calculate(sender, e);
 		}
 
 		private void ClearEquation(object sender, RoutedEventArgs e)
 		{
 			Equation.Text = "";
-			LastSign = "";
+			Input.Text = "";
+			LastSing = "";
 			LastNumber = "";
-			LastResult = "";
-			ClearCurrentValue(sender, e);
+			UseLast = false;
+			ActiveComma = false;
+			ActiveBrackets = 0;
+		}
+
+		private string GetButtonContent(object sender)
+		{
+			var button = sender as Button;
+			return (string)button.Content;
 		}
 	}
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 		MinHeight="442" MinWidth="300"
 		Height="370" Width="235"
-        Title="Eliza">
+        Title="Kalk">
 	<Window.Resources>
 		<Style TargetType="Button">
 			<Setter Property="FontSize" Value="14"></Setter>
@@ -39,9 +39,9 @@
 			<RowDefinition></RowDefinition>
 		</Grid.RowDefinitions>
 
-		<TextBox x:Name="Equation" Text="{Binding Path=Equation}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" TextAlignment="Right"></TextBox>
+		<TextBox IsReadOnly="True" x:Name="Equation" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" TextAlignment="Right"></TextBox>
 
-		<TextBox x:Name="Input" Text="{Binding Path=Input}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" 
+		<TextBox IsReadOnly="True" x:Name="Input" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" 
 					VerticalAlignment="Stretch" TextAlignment="Right" 
 					VerticalContentAlignment="Center" FontSize="18"></TextBox>
 
@@ -49,8 +49,7 @@
 		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="2" Content="SIN"></Button>
 		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="2" Content="COS"></Button>
 		<Button Click="FunctionClick" Grid.Column="2" Grid.Row="2" Content="TAN"></Button>
-		<Button Click="ClearCurrentValue" Grid.Column="3" Grid.Row="2" Content="C"></Button>
-		<Button Click="ClearEquation" Grid.Column="4" Grid.Row="2" Content="CC"></Button>
+		<Button Click="ClearEquation" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="2" Content="CC"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
 		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="3" Content="ArcSIN"></Button>
 		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="3" Content="ArcCOS"></Button>
@@ -60,38 +59,36 @@
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
 		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="4" Content="Floor"></Button>
 		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="4" Content="Ceil"></Button>
-		<Button Click="FunctionClick" Grid.Column="2" Grid.Row="4" Content="x^2"></Button>
-		<Button Click="FunctionClick" Grid.Column="3" Grid.Row="4" Content="2^y"></Button>
-		<Button Click="FunctionClick" Grid.Column="4" Grid.Row="4" Content="x^y"></Button>
+		<Button Click="BracketSignClick" Grid.Column="2" Grid.Row="4" Content="("></Button>
+		<Button Click="BracketSignClick" Grid.Column="3" Grid.Row="4" Content=")"></Button>
+		<Button Click="FunctionClick" Grid.Column="4" Grid.Row="4" Content="^"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
-		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="5" Content="Log"></Button>
-		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="5" Content="MOD"></Button>
-		<Button Click="SignClick" Grid.Column="2" Grid.Row="5" Content="("></Button>
-		<Button Click="SignClick" Grid.Column="3" Grid.Row="5" Content=")"></Button>
-		<Button Click="SignClick" Grid.Column="4" Grid.Row="5" Content="/"></Button>
+		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="5" Content="Log10"></Button>
+		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="5" Content="Log"></Button>
+		<Button Click="SignClick" Grid.Column="2" Grid.Row="5" Content="MOD"></Button>
+		<Button Click="SignClick" Grid.Column="3" Grid.Row="5" Content="/"></Button>
+		<Button Click="SignClick" Grid.Column="4" Grid.Row="5" Content="*"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
-		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="6" Content="Log10"></Button>
+		<Button Click="NumberClick"  Grid.Column="0" Grid.Row="6" Content="E"></Button>
 		<Button Click="NumberClick" Grid.Column="1" Grid.Row="6" Content="7"></Button>
 		<Button Click="NumberClick" Grid.Column="2" Grid.Row="6" Content="8"></Button>
 		<Button Click="NumberClick" Grid.Column="3" Grid.Row="6" Content="9"></Button>
-		<Button Click="SignClick" Grid.Column="4" Grid.Row="6" Content="*"></Button>
+		<Button Click="SignClick" Grid.Column="4" Grid.Row="6" Content="-"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
-		<Button Click="NumberClick"  Grid.Column="0" Grid.Row="7" Content="E"></Button>
+		<Button Click="NumberClick"  Grid.Column="0" Grid.Row="7" Content="Pi"></Button>
 		<Button Click="NumberClick" Grid.Column="1" Grid.Row="7" Content="4"></Button>
 		<Button Click="NumberClick" Grid.Column="2" Grid.Row="7" Content="5"></Button>
 		<Button Click="NumberClick" Grid.Column="3" Grid.Row="7" Content="6"></Button>
-		<Button Click="SignClick" Grid.Column="4" Grid.Row="7" Content="-"></Button>
+		<Button Click="SignClick" Grid.Column="4" Grid.RowSpan="2" Grid.Row="7" Content="+"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
-		<Button Click="NumberClick"  Grid.Column="0" Grid.Row="8" Content="Pi"></Button>
+		<Button Click="RoundFunctionClick" Grid.Column="0" Grid.Row="8" Content="Round"></Button>
 		<Button Click="NumberClick" Grid.Column="1" Grid.Row="8" Content="1"></Button>
 		<Button Click="NumberClick" Grid.Column="2" Grid.Row="8" Content="2"></Button>
 		<Button Click="NumberClick" Grid.Column="3" Grid.Row="8" Content="3"></Button>
-		<Button Click="SignClick" Grid.Column="4" Grid.Row="8" Content="+"></Button>
 		<!--<Button Grid.Column="4" Grid.Row="2" Content="42"></Button>-->
-		<Button Click="FunctionClick" Grid.Column="0" Grid.Row="9" Content="Round"></Button>
-		<Button Click="FunctionClick" Grid.Column="1" Grid.Row="9" Content="ABS"></Button>
-		<Button Click="NumberClick" Grid.Column="2" Grid.Row="9" Content="0"></Button>
-		<Button Click="SignClick" Grid.Column="3" Grid.Row="9" Content=","></Button>
+		<Button Click="ABSFunctionClick" Grid.Column="0" Grid.Row="9" Content="ABS"></Button>
+		<Button Click="NumberClick" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" Content="0"></Button>
+		<Button Click="CommaClick" Grid.Column="3" Grid.Row="9" Content=","></Button>
 		<Button Click="Calculate" Grid.Column="4" Grid.Row="9" Content="="></Button>
 	</Grid>
 </Window>
